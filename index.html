@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profit Allocator</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Profit Allocator</h1>
+    </header>
+    <main>
+      <div class="input-group">
+        <label for="gross-profit">Gross Profit ($):</label>
+        <input id="gross-profit" type="text" placeholder="0.00">
+      </div>
+      <div class="input-group">
+        <label for="discounts">Discounts ($):</label>
+        <input id="discounts" type="text" placeholder="0.00">
+      </div>
+      <div class="result-group">
+        <span>Net Profit:</span>
+        <span id="net-profit">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>Investments:</span>
+        <span id="investments">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>Cash:</span>
+        <span id="cash">$ 0.00</span>
+      </div>
+      <div class="result-group">
+        <span>General:</span>
+        <span id="general">$ 0.00</span>
+      </div>
+    </main>
+  </div>
+  <script src="./main.js" defer></script>
+</body>
+</html>
+
