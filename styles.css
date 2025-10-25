@@ -26,12 +26,12 @@ body {
 h1 {
   font-size: 2rem;
   font-weight: 700;
+  line-height: 1.25;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-.input-group,
-.result-group {
+.input-group {
   margin-bottom: 1rem;
 }
 
@@ -58,5 +58,6 @@ input:focus {
   border-bottom: 1px solid gainsboro;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
   padding-bottom: 0.25rem;
 }
