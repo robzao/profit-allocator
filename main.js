@@ -1,9 +1,10 @@
-const grossProfitInput = document.getElementById('gross-profit');
-const discountsInput = document.getElementById('discounts');
+const grossProfit = document.getElementById('gross-profit');
+const discounts = document.getElementById('discounts');
 const netProfitDisplay = document.getElementById('net-profit');
 const investmentsDisplay = document.getElementById('investments');
 const cashDisplay = document.getElementById('cash');
 const generalDisplay = document.getElementById('general');
+const resetButton = document.getElementById('reset');
 
 const INVESTMENT_FRACTION = 1 / 3;
 const CASH_FRACTION = 1 / 6;
@@ -15,6 +16,12 @@ const updateDisplay = (result) => {
   investmentsDisplay.textContent = formatCurrency(result.investments);
   cashDisplay.textContent = formatCurrency(result.cash);
   generalDisplay.textContent = formatCurrency(result.general);
+};
+
+const clearAll = () => {
+  grossProfit.value = '';
+  discounts.value = '';
+  handleCalculation(); 
 };
 
 const sanitizeInput = (rawValue) => {
@@ -37,19 +44,20 @@ const calculateShares = (grossProfit, discounts) => {
 };
 
 const handleCalculation = () => {
-  const sanitizedGrossProfit = sanitizeInput(grossProfitInput.value);
-  grossProfitInput.value = sanitizedGrossProfit;
-  const sanitizedDiscounts = sanitizeInput(discountsInput.value);
-  discountsInput.value = sanitizedDiscounts;
-  const grossProfit = parseCurrency(sanitizedGrossProfit);
-  const discounts = parseCurrency(sanitizedDiscounts);
-  const result = calculateShares(grossProfit, discounts);
+  const sanitizedGrossProfit = sanitizeInput(grossProfit.value);
+  grossProfit.value = sanitizedGrossProfit;
+  const sanitizedDiscounts = sanitizeInput(discounts.value);
+  discounts.value = sanitizedDiscounts;
+  const grossProfitValue = parseCurrency(sanitizedGrossProfit); 
+  const discountsValue = parseCurrency(sanitizedDiscounts);
+  const result = calculateShares(grossProfitValue, discountsValue);
   updateDisplay(result);
 };
 
 const setupEventListeners = () => {
-  grossProfitInput.addEventListener('input', handleCalculation);
-  discountsInput.addEventListener('input', handleCalculation);
+  grossProfit.addEventListener('input', handleCalculation);
+  discounts.addEventListener('input', handleCalculation);
+  resetButton.addEventListener('click', clearAll);
 };
 
 const init = () => {
