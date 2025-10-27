@@ -21,42 +21,47 @@ const updateDisplay = (result) => {
 const clearAll = () => {
   grossProfit.value = '';
   discounts.value = '';
-  handleCalculation(); 
+  handleCalculation();
 };
 
 const sanitizeInput = (rawValue) => {
-  const value = rawValue.replace(/[^\d.]/g, '');
+  let value = rawValue.replace(/[^\d.]/g, '');
   const parts = value.split('.');
-  return parts.length > 2 ? parts[0] + '.' + parts.slice(1).join('') : value;
+  if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+  if (value.startsWith('-')) value = value.substring(1);
+  return value;
 };
 
 const parseCurrency = (sanitizedValue) => {
   const numericValue = parseFloat(sanitizedValue);
-  return isNaN(numericValue) ? 0 : numericValue;
+  return (isNaN(numericValue) || numericValue < 0) ? 0 : numericValue;
 };
 
 const calculateShares = (grossProfit, discounts) => {
   const netProfit = grossProfit - discounts;
-  const investments = netProfit * INVESTMENT_FRACTION;
-  const cash = netProfit * CASH_FRACTION;
-  const general = netProfit - investments - cash;
+  const allocableProfit = netProfit > 0 ? netProfit : 0;
+  const investments = allocableProfit * INVESTMENT_FRACTION;
+  const cash = allocableProfit * CASH_FRACTION;
+  const general = allocableProfit - investments - cash;
   return { netProfit, investments, cash, general };
 };
 
 const handleCalculation = () => {
-  const sanitizedGrossProfit = sanitizeInput(grossProfit.value);
-  grossProfit.value = sanitizedGrossProfit;
-  const sanitizedDiscounts = sanitizeInput(discounts.value);
-  discounts.value = sanitizedDiscounts;
-  const grossProfitValue = parseCurrency(sanitizedGrossProfit); 
-  const discountsValue = parseCurrency(sanitizedDiscounts);
+  const grossProfitValue = parseCurrency(grossProfit.value);
+  const discountsValue = parseCurrency(discounts.value);
   const result = calculateShares(grossProfitValue, discountsValue);
   updateDisplay(result);
 };
 
+const handleInput = (e) => {
+  const input = e.target;
+  input.value = sanitizeInput(input.value);
+  handleCalculation();
+};
+
 const setupEventListeners = () => {
-  grossProfit.addEventListener('input', handleCalculation);
-  discounts.addEventListener('input', handleCalculation);
+  grossProfit.addEventListener('input', handleInput);
+  discounts.addEventListener('input', handleInput);
   resetButton.addEventListener('click', clearAll);
 };
 

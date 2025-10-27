@@ -14,10 +14,10 @@ The calculation process requires only two inputs to determine the distribution i
 
 ### Input Fields
 
-| Field | Description |
-| :--- | :--- |
-| **Gross Profit ($)** | The total revenue amount before any deductions or expenses. |
-| **Discounts ($)** | The total value of discounts applied to sales or initial deductions. |
+| Field | Restriction | Description |
+| :--- | :--- | :--- |
+| **Gross Profit ($)** | Number >= 0 | The total revenue amount before any deductions or expenses. |
+| **Discounts ($)** | Number >= 0 | The total value of discounts applied to sales or initial deductions. |
 
 ### Calculation Logic
 
